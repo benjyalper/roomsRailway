@@ -65,7 +65,32 @@ $(document).ready(function () {
     $('#startTime').on('change', function () {
         updateEndTimeOptions();
     });
+    let inactivityTimeout;
+
+    function setupInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+
+        inactivityTimeout = setTimeout(function () {
+            // Redirect to the sign-in page
+            window.location.href = '/index.html';
+        }, 300000); // 5 minutes in milliseconds
+    }
+
+    // Set up the inactivity timer on page load
+    setupInactivityTimer();
+
+    // Listen for any user activity
+    $(document).on('mousemove keypress', setupInactivityTimer);
+
+    // Listen for the beforeunload event (user navigating away)
+    $(window).on('beforeunload', function () {
+        // Clear the timeout to prevent redirection
+        clearTimeout(inactivityTimeout);
+    });
 });
+
+
+
 
 // Function to submit date
 async function submitDate() {
