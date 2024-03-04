@@ -1,6 +1,32 @@
 $(document).ready(function () {
     let currentRoomNumber;
 
+    $('.sign-out-link').on('click', function () {
+        const signOutConfirmation = confirm('האם להתנתק?');
+        if (signOutConfirmation) {
+            $.ajax({
+                type: 'GET',
+                url: '/logout', // Adjust the URL based on your server configuration
+                xhrFields: {
+                    withCredentials: true // Include credentials (cookies) in the request
+                },
+                success: function (data) {
+                    // If the logout is successful, you might want to redirect to a login page or update the UI
+                    window.location.href = '/signin'; // Redirect to your login page
+                },
+                error: function (error) {
+                    // Handle the case where logout was not successful
+                    console.error('Logout failed:', error.statusText);
+                }
+            });
+        } else {
+            console.log("same user");
+        }
+
+
+    });
+
+
     $('.room').on('click', function () {
         const room = $(this).closest('.room');
         currentRoomNumber = $(room).data('room-number');
@@ -32,7 +58,7 @@ $(document).ready(function () {
         alert("חתלתוללללל....!");
     });
 
-    fetchDataByDate();
+    $('#lookupDate').val(moment().format('YYYY-MM-DD'));
 
     // Update end time options when start time changes
     $('#startTime').on('change', function () {
@@ -183,7 +209,7 @@ async function deleteEntry(selected_date, roomNumber, startTime) {
         // Clear the grid cells after successful deletion
         clearGridCells();
 
-        alert('Entry deleted successfully!');
+        alert('האירוע נמחק בהצלחה');
     } catch (error) {
         console.error('Error deleting entry:', error);
         throw error;
@@ -201,3 +227,4 @@ async function getDataByDate(date) {
         throw error;
     }
 }
+
