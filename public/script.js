@@ -65,32 +65,22 @@ $(document).ready(function () {
     $('#startTime').on('change', function () {
         updateEndTimeOptions();
     });
-    let inactivityTimeout;
 
-    function setupInactivityTimer() {
-        clearTimeout(inactivityTimeout);
-
-        inactivityTimeout = setTimeout(function () {
-            // Redirect to the sign-in page
-            window.location.href = '/index.html';
-        }, 300000); // 5 minutes in milliseconds
-    }
-
-    // Set up the inactivity timer on page load
-    setupInactivityTimer();
-
-    // Listen for any user activity
-    $(document).on('mousemove keypress', setupInactivityTimer);
-
-    // Listen for the beforeunload event (user navigating away)
-    $(window).on('beforeunload', function () {
-        // Clear the timeout to prevent redirection
-        clearTimeout(inactivityTimeout);
+    $('#recurringEvent').change(function () {
+        const recurringNoLabel = $('label[for="recurringNum"]');
+        // Check if the checkbox is checked
+        if ($(this).is(':checked')) {
+            // If checked, make the specified elements visible
+            $('#recurringNum').css('visibility', 'visible');
+            $(recurringNoLabel).css('visibility', 'visible');
+        } else {
+            // If not checked, hide the specified elements
+            $('#recurringNum').css('visibility', 'hidden');
+            $(recurringNoLabel).css('visibility', 'hidden');
+        }
     });
+
 });
-
-
-
 
 // Function to submit date
 async function submitDate() {
@@ -101,20 +91,21 @@ async function submitDate() {
     const endTime = $('#endTime').val();
     const roomNumber = $('#roomNumber').val();
     const recurringEvent = $('#recurringEvent').is(':checked');
+    const recurringNum = $('#recurringNum').val();
 
     const response = await fetch('/submit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ selectedDate, names, selectedColor, startTime, endTime, roomNumber, recurringEvent }),
+        body: JSON.stringify({ selectedDate, names, selectedColor, startTime, endTime, roomNumber, recurringEvent, recurringNum }),
     });
 
     const result = await response.text();
     $('#message').text(result);
 
     // Log the submitted data to the console
-    console.log(`Submitted Date: ${selectedDate}, Names: ${names}, Color: ${selectedColor}, Start Time: ${startTime}, End Time: ${endTime}, Room Number: ${roomNumber}, Recurring Event: ${recurringEvent}`);
+    console.log(`Submitted Date: ${selectedDate}, Names: ${names}, Color: ${selectedColor}, Start Time: ${startTime}, End Time: ${endTime}, Room Number: ${roomNumber}, Recurring Event: ${recurringEvent}, recurringNum: ${recurringNum}`);
 
     // Update end time options based on the selected start time
     updateEndTimeOptions();
