@@ -63,6 +63,14 @@ body {
     /* max-height: 300px; */
 }
 
+#knock {
+    /* position: fixed; */
+    height: 50px;
+    margin-top: 100px;
+    margin-left: 40px;
+    /* background-color: peachpuff; */
+}
+
 @media (max-width: 1100px) {
     .room-grid {
         grid-template-columns: repeat(2, 1fr) !important;
