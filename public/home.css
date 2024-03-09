@@ -94,14 +94,6 @@ body {
         margin-top: 65px;
     }
 
-    #knock {
-        position: fixed;
-        height: 50px;
-        margin-top: 100px;
-        margin-right: 170px;
-        z-index: 20000;
-        /* background-color: peachpuff; */
-    }
 }
 
 @media (max-width: 500px) {
@@ -115,6 +107,15 @@ body {
         font-size: 20px !important;
         text-align: center;
         margin-top: 65px;
+    }
+
+    #knock {
+        position: fixed;
+        height: 50px;
+        margin-top: 100px;
+        margin-right: 170px;
+        z-index: 20000;
+        /* background-color: peachpuff; */
     }
 }
 
