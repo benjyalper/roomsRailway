@@ -66,10 +66,10 @@ body {
 #knock {
     position: fixed;
     height: 50px;
-    margin-top: 80px;
-    margin-left: 40px;
-    /* background-color: peachpuff; */
+    margin-top: 100px;
+    margin-left: 120px;
     z-index: 20000;
+    /* background-color: peachpuff; */
 }
 
 @media (max-width: 1100px) {
