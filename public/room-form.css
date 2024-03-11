@@ -71,6 +71,11 @@ select {
     border-radius: 5px;
 }
 
+.navbar-toggler {
+    margin-right: 20px;
+}
+
+
 #submitBtn {
     margin-top: 10px;
     /* grid-column: span 2; */
