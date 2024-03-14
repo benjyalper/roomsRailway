@@ -297,7 +297,7 @@ app.post('/submit_message', async (req, res) => {
 
         try {
             // Fix the table name from 'messsages' to 'messages'
-            const [result] = await connection.execute('INSERT INTO messages_marbah (message) VALUES (?)', [message]);
+            const [result] = await connection.execute('INSERT INTO messages_trial (message) VALUES (?)', [message]);
 
             // Get the inserted message ID
             const messageId = result.insertId;
@@ -345,7 +345,7 @@ app.post('/delete_message', async (req, res) => {
 
         try {
             // Use correct table name 'messages' in the SQL query
-            await connection.execute('DELETE FROM messages_marbah WHERE id = ?', [parseInt(messageId)]);
+            await connection.execute('DELETE FROM messages_trial WHERE id = ?', [parseInt(messageId)]);
 
             // Commit the transaction
             await connection.commit();
@@ -376,7 +376,7 @@ app.post('/delete_message', async (req, res) => {
 // Server-side route to get the last 10 messages
 app.get('/get_last_messages', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM messages_marbah ORDER BY id DESC LIMIT 10');
+        const [rows] = await pool.query('SELECT * FROM messages_trial ORDER BY id DESC LIMIT 10');
         const messages = rows.map(row => row.message); // Extract the 'message' field
         const messageIds = rows.map(row => row.id);
 
