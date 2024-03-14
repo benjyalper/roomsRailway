@@ -51,7 +51,7 @@ $(document).ready(function () {
     });
 
     $('.cat-link').click(function () {
-        window.location.href = '/cat.html';
+        window.location.href = '/messages.html';
     });
 
     $('.cat').on('click', function () {
